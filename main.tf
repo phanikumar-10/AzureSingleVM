@@ -1,5 +1,5 @@
 locals {
-  resource_group = "test-grp"
+  resource_group = "demo-rg"
   location       = "Central US"
   vm-name        = "${random_string.vm-name.result}-vm"
 }
@@ -13,7 +13,7 @@ resource "random_string" "vm-name" {
 }
 
 
-resource "azurerm_resource_group" "test_grp" {
+resource "azurerm_resource_group" "demo-rg" {
   name     = local.resource_group
   location = local.location
 }
@@ -21,7 +21,7 @@ resource "azurerm_resource_group" "test_grp" {
 resource "azurerm_virtual_network" "app_network" {
   name                = "app-network"
   location            = local.location
-  resource_group_name = azurerm_resource_group.test_grp.name
+  resource_group_name = azurerm_resource_group.demo-rg.name
   address_space       = ["10.0.0.0/16"]
 }
 
