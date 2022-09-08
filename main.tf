@@ -1,5 +1,5 @@
 locals {
-  resource_group = "demo-rg"
+  resource_group = "demo-test"
   location       = "Central US"
   vm-name        = "${random_string.vm-name.result}-vm"
 }
@@ -13,7 +13,7 @@ resource "random_string" "vm-name" {
 }
 
 
-resource "azurerm_resource_group" "demo-rg" {
+resource "azurerm_resource_group" "demo-test" {
   name     = local.resource_group
   location = local.location
 }
@@ -21,7 +21,7 @@ resource "azurerm_resource_group" "demo-rg" {
 resource "azurerm_virtual_network" "app_network" {
   name                = "app-network"
   location            = local.location
-  resource_group_name = azurerm_resource_group.demo-rg.name
+  resource_group_name = azurerm_resource_group.demo-test.name
   address_space       = ["10.0.0.0/16"]
 }
 
@@ -49,8 +49,8 @@ resource "azurerm_network_interface" "app_interface" {
 }
 
 resource "azurerm_windows_virtual_machine" "app_vm" {
-  count               = var.vm_count
-  name                = "${local.vm-name}-${count.index}"
+  #count               = var.vm_count
+  name                = local.vm-name
   resource_group_name = local.resource_group
   location            = local.location
   size                = "Standard_DS2"
