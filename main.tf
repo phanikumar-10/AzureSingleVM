@@ -50,7 +50,7 @@ resource "azurerm_network_interface" "app_interface" {
 
 resource "azurerm_windows_virtual_machine" "app_vm" {
   count               = var.vm_count
-  name                = ${local.vm-name}-${count.index}
+  name                = "${local.vm-name}-${count.index}"
   resource_group_name = local.resource_group
   location            = local.location
   size                = "Standard_DS2"
